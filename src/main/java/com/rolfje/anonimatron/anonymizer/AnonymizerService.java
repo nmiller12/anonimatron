@@ -14,6 +14,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.rolfje.anonimatron.synonyms.NullSynonym;
+import com.rolfje.anonimatron.synonyms.StringSynonym;
 import com.rolfje.anonimatron.synonyms.Synonym;
 import com.rolfje.anonimatron.synonyms.SynonymMapper;
 
@@ -39,6 +40,8 @@ public class AnonymizerService {
 		registerAnonymizer(new DigitStringAnonymizer());
 		registerAnonymizer(new CharacterStringAnonymizer());
 		registerAnonymizer(new CharacterStringPrefetchAnonymizer());
+		registerAnonymizer(new NumberAnonymizer());
+		registerAnonymizer(new TimestampAnonymizer());
 		
 		// Default anonymizers for plain Java objects. If we really don't
 		// know or care how the data looks like.
@@ -84,7 +87,10 @@ public class AnonymizerService {
 		Synonym synonym = getFromCache(type, from);
 		if (synonym == null) {
 			synonym = getAnonymizer(type).anonymize(from, size);
-			putInCache(synonym);
+			/* do not store non StringSynonyms*/
+			if(synonym instanceof StringSynonym) {
+				putInCache(synonym);
+			}			
 		}
 		return synonym;
 	}
