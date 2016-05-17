@@ -7,7 +7,7 @@ package com.rolfje.anonimatron.synonyms;
  */
 public class IntegerSynonym implements Synonym {
 	private String type;
-	private String from;
+	private Integer from;
 	private Integer to;
 
 	public String getType() {
@@ -31,7 +31,7 @@ public class IntegerSynonym implements Synonym {
 	}
 
 	public void setFrom(Object from) {
-		this.from = from.toString();		
+		this.from = (Integer) from;		
 	}
 
 	@Override
