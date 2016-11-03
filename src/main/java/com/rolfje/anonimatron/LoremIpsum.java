@@ -83,12 +83,13 @@ public class LoremIpsum {
 	}
 
 	private static String getNextWord() {
-		String word = LOREM.get(index);
+		
 		if (index == LOREM.size()) {
 			index = 0;
-		} else {
-			index++;
-		}
+		} 
+					
+		String word = LOREM.get(index);
+		index++;
 		return word;
 	}
 
