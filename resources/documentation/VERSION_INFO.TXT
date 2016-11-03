@@ -1,3 +1,20 @@
+*** Version 1.8.3-NM-2
+
+Fixes:
+  Modified RANDOMNUMBERS anonymizer to handle BigDecimal for Oracle Number(11,0).
+  Modified LOREMIPSUM anonymizer to handle Clobs.
+  Problem with getting the primary keys for Oracle. If no primary keys found, assume primary key is 'id'.
+
+*** Version 1.8.3-NM-1
+
+- New features:
+  Added anonymizers:
+  RANDOMNUMBERS to generate random numbers on number fields (Tested on Mysql:int,tinyint; Postgres:int,boolean).
+  TIMESTAMP to generate random timestamp about 5 months earlier (Tested on Oracle:date; Postgres:timestamp).
+  LOREMIPSUM generates a fragment of lorem ipsum based on a word count of the original. Note that resulting length may be larger than the original input, which may be a problem for fields with limits. (Tested on Oracle:nvarchar2; Postgres:varchar,text; Mysql:varchar,text).
+-Fixes:
+  Commented out sybase jdbc driver to keep compatability with java 1.6
+
 *** Version 1.7
 
 - Implemented "Dryrun", feature request #3.

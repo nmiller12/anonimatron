@@ -352,11 +352,13 @@ public class JdbcAnonymizerService {
 			}
 		}
 		results.close();
-
+		
 		if (primaryKeys.length() < 1) {
-			String msg = "Table " + table.getName() + " does not contain a primary key and can not be anonymyzed.";
-			LOG.error(msg);
-			throw new RuntimeException(msg);
+//			String msg = "Table " + table.getName() + " does not contain a primary key and can not be anonymyzed.";
+//			LOG.error(msg);
+//			throw new RuntimeException(msg);
+			/* if no primary key found, assume primary key is id. fix for Oracle as driver does not seem to support DatabaseMetadata.getPrimaryKeys*/
+			primaryKeys = "id,";
 		}
 
 		String select = "select " + primaryKeys;
@@ -416,8 +418,8 @@ public class JdbcAnonymizerService {
 			"org.postgresql.Driver");
 		drivers.put("jdbc:sybase:Tds:[HOST]:[PORT]",
 			"com.sybase.jdbc.SybDriver");
-		drivers.put("jdbc:sybase:Tds:[HOST]:[PORT]/[DB]",
-				"net.sourceforge.jtds.jdbc.Driver");
+//		drivers.put("jdbc:sybase:Tds:[HOST]:[PORT]/[DB]",
+//				"net.sourceforge.jtds.jdbc.Driver");
 
 
 		for (Entry<String, String> driverEntry : drivers.entrySet()) {

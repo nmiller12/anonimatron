@@ -85,7 +85,10 @@ public class AnonymizerService {
 		Synonym synonym = getFromCache(type, from);
 		if (synonym == null) {
 			synonym = getAnonymizer(type).anonymize(from, size);
-			putInCache(synonym);
+			/* do not store new anonymisers that have no synonym file mapping as yet */
+			if(synonym.getType()!=null && !synonym.getType().equals("LOREMIPSUM") && !synonym.getType().equals("TIMESTAMP") && !synonym.getType().equals("RANDOMNUMBERS")) {
+				putInCache(synonym);
+			}
 		}
 		return synonym;
 	}
